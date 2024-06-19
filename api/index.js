@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import mongoose from "mongoose";
+import authRoute from "./routes/auth.route.js";
 
 const app = express();
+app.use(express.json());
 
 const Db = async () => {
   try {
@@ -15,6 +17,8 @@ const Db = async () => {
   }
 };
 Db();
+
+app.use("/api/auth", authRoute);
 
 const PORT = process.env.PORT || 3000;
 
