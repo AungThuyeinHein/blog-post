@@ -25,3 +25,9 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`App is runnin at PORT : ${PORT}`);
 });
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.messgae || "Internal server Error";
+  res.status(statusCode).json({ success: false, statusCode, message });
+});
