@@ -5,7 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toogleTheme } from "../redux/theme/themeSlice.js";
-import { signOutFailure, signOutSuccess } from "../redux/user/userSlice.js";
+import { signOutSuccess } from "../redux/user/userSlice.js";
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -18,9 +18,7 @@ export default function Header() {
         method: "POST",
       });
       const data = res.json();
-      if (!res.ok) {
-        dispatch(signOutFailure(data.message));
-      } else {
+      if (res.ok) {
         dispatch(signOutSuccess());
       }
     } catch (error) {
