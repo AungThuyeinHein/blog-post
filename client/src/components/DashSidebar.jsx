@@ -2,7 +2,7 @@ import { Sidebar } from "flowbite-react";
 import { HiArrowSmRight, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { signOutSuccess } from "../redux/user/userSlice.js";
+import { signOutFailure, signOutSuccess } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 
 export default function DashSidebar() {
@@ -22,7 +22,9 @@ export default function DashSidebar() {
         method: "POST",
       });
       const data = res.json();
-      if (res.ok) {
+      if (!res.ok) {
+        dispatch(signOutFailure(data.message));
+      } else {
         dispatch(signOutSuccess());
       }
     } catch (error) {
