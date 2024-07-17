@@ -2,10 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.route.js";
+import userRoute from "./routes/user.route.js";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 const Db = async () => {
   try {
@@ -19,6 +22,7 @@ const Db = async () => {
 Db();
 
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
 const PORT = process.env.PORT || 3000;
 
